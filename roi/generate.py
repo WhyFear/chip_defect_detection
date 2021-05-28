@@ -24,7 +24,7 @@ class BatchRename():
                 dst = os.path.join(os.path.abspath(self.path), str(0) * n + str(i) + '.jpg')
                 try:
                     os.rename(src, dst)
-                    print('converting %s--to-->%s' % (src, dst))
+                    # print('converting %s--to-->%s' % (src, dst))
                     i = i + 1
                 except:
                     continue
@@ -50,27 +50,17 @@ def copy_move_file(root_dir, target_path):
 
 
 def rename():
-    classes = dict()
-    with open("classes.txt", "r", encoding="utf-8") as f:
-        line = f.readline()
-        while line:
-            temp = line.split()
-            classes[temp[0]] = temp[1]
-            line = f.readline()
-
-    path = "./"  # 文件夹目录
+    path = r"D:\Codes\chip_defect_detection\roi\all"  # 文件夹目录
     files = os.listdir(path)  # 得到文件夹下的所有文件名称
-    s = []
     for dir in files:  # 遍历文件夹
         if os.path.isdir(dir):  # 判断是否是文件夹，不是文件夹才打开
-            temppath = os.path.join(path, dir)  # 图片文件夹路径
-            # temppath = "./062"
-            BatchRename(temppath).rename()
+            temp_path = os.path.join(path, dir)  # 图片文件夹路径
+            BatchRename(path).rename()
 
 
 def train_txt_file():
-    with open("train.txt", "w", encoding="utf-8") as train_file:
-        path = "./"  # 文件夹目录
+    with open("../dataset/train.txt", "w", encoding="utf-8") as train_file:
+        path = "../dataset/"  # 文件夹目录
         dirs = os.listdir(path)  # 得到文件夹下的所有文件名称
         s = []
         for dir in dirs:  # 遍历文件夹
@@ -84,7 +74,7 @@ def train_txt_file():
 def shuffle():
     out = open("./train1.txt", 'w')
     lines = []
-    with open("./train.txt", 'r') as infile:
+    with open("../dataset/train.txt", 'r') as infile:
         for line in infile:
             lines.append(line)
     random.shuffle(lines)
@@ -93,9 +83,8 @@ def shuffle():
 
 
 def rgb2gray():
-    path = "./"  # 文件夹目录
+    path = "../dataset/"  # 文件夹目录
     files = os.listdir(path)  # 得到文件夹下的所有文件名称
-    s = []
     for dir in files:  # 遍历文件夹
         if os.path.isdir(dir):  # 判断是否是文件夹，不是文件夹才打开
             temp_path = os.path.join(path, dir)  # 图片文件夹路径
@@ -107,6 +96,6 @@ def rgb2gray():
 
 
 if __name__ == '__main__':
-    # rename()
+    rename()
     # train_txt_file()
-    shuffle()
+    # shuffle()
